@@ -25,13 +25,14 @@ public class User implements Serializable {
     private String username;
     private String email;
     private String password;
-    private String phonenumber;
-    private LocalDate registerDate;
-    private Boolean status;
-    private String token;
 
-    private String address;
+    private Boolean status;
+    private String phoneNumber;
+    private LocalDate registerDate;
     private Boolean gender;
+
+    private String token;
+    private String address;
     private String image;
 
     @ManyToMany(fetch = FetchType.LAZY)

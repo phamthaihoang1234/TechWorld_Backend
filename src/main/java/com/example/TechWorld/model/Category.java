@@ -1,13 +1,21 @@
 package com.example.TechWorld.model;
 
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
-@Table
-public class Category {
+import javax.persistence.*;
+import java.io.Serializable;
+
+@SuppressWarnings("serial")
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+@Entity
+@Table(name = "categories")
+public class Category implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long Id;
+    private Long categoryId;
+    private String categoryName;
 }

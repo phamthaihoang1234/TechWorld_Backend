@@ -1,11 +1,28 @@
 package com.example.TechWorld.model;
 
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
-public class Cart {
+import javax.persistence.*;
+import java.io.Serializable;
+
+
+@SuppressWarnings("serial")
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+@Entity
+@Table(name = "carts")
+public class Cart implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long Id;
+    private Long cartId;
+    private Double amount;
+    private String address;
+    private String phoneNumber;
+
+    @ManyToOne
+    @JoinColumn(name = "userId")
+    private User user;
 }

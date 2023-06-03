@@ -7,6 +7,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 @SuppressWarnings("serial")
 @Data
@@ -14,7 +15,7 @@ import javax.persistence.*;
 @NoArgsConstructor
 @Entity
 @Table(name = "Roles")
-public class Role {
+public class Role implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

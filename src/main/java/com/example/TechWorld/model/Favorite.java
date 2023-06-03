@@ -1,11 +1,31 @@
 package com.example.TechWorld.model;
 
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
-public class Favorite {
+import javax.persistence.*;
+import java.io.Serializable;
+
+
+@SuppressWarnings("serial")
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+@Entity
+@Table(name = "favorites")
+public class Favorite implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long Id;
+    private Long favoriteId;
+
+    @ManyToOne
+    @JoinColumn(name = "productId")
+    private Product product;
+
+    @ManyToOne
+    @JoinColumn(name = "userId")
+    private User user;
+
+
 }

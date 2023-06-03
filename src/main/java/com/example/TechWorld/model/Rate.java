@@ -19,20 +19,23 @@ public class Rate implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private Double rating;
+
     private String comment;
+    private Double rating;
     private Date rateDate;
 
     @ManyToOne
     @JoinColumn(name = "userId")
     private User user;
 
-    /*@ManyToOne
-    @JoinColumn(name = "productId")
-    private Product product;*/
-
     @OneToOne
     @JoinColumn(name = "orderDetailId")
     private OrderDetails orderDetail;
+
+    @ManyToOne
+    @JoinColumn(name = "productId")
+    private Product product;
+
+
 
 }

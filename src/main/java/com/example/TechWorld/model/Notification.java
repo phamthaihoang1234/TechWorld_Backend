@@ -1,11 +1,25 @@
 package com.example.TechWorld.model;
 
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
-public class Notification {
+import javax.persistence.*;
+import java.io.Serializable;
+import java.util.Date;
+
+
+@SuppressWarnings("serial")
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+@Entity
+@Table(name = "notification")
+public class Notification implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long Id;
+    private Long id;
+    private String message;
+    private Date time;
+    private Boolean status;
 }

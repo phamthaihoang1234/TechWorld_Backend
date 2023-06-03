@@ -20,15 +20,19 @@ public class OrderDetails implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long orderDetailId;
-    private int quantity;
-    private Double price;
 
-    /*@ManyToOne
-    @JoinColumn(name = "productId")
-    private Product product;
+    private Double price;
+    private int quantity;
+
 
     @ManyToOne
     @JoinColumn(name = "orderId")
-    private Order order;*/
+    private Order order;
+
+    @ManyToOne
+    @JoinColumn(name = "productId")
+    private Product product;
+
+
 
 }
