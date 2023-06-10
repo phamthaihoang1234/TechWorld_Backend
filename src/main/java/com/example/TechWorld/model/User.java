@@ -21,19 +21,16 @@ public class User implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long userId;
-
     private String username;
     private String email;
     private String password;
-
-    private Boolean status;
     private String phoneNumber;
-    private LocalDate registerDate;
-    private Boolean gender;
-
-    private String token;
     private String address;
+    private Boolean gender;
     private String image;
+    private LocalDate registerDate;
+    private Boolean status;
+    private String token;
 
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "user_roles",

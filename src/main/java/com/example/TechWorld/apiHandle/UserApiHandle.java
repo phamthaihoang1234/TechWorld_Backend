@@ -76,6 +76,14 @@ public class UserApiHandle {
 
     }
 
+    @GetMapping("email/{email}")
+    public ResponseEntity<User> getOneByEmail(@PathVariable("email") String email) {
+        if (userRepository.existsByEmail(email)) {
+            return ResponseEntity.ok(userRepository.findByEmail(email).get());
+        }
+        return ResponseEntity.notFound().build();
+    }
+
     @PostMapping("/signup")
     public ResponseEntity<?> registerUser(@Validated @RequestBody SignUpRequest signupRequest) {
 

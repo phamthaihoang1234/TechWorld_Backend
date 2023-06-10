@@ -9,7 +9,6 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
-
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
 import java.io.File;
@@ -45,26 +44,31 @@ public class SendMailServiceImplement implements SendMailService {
         }
 
         // Gửi message đến SMTP server
+        System.out.println("vao buoc gui mail thanh cong");
         sender.send(message);
 
     }
 
     @Override
     public void queue(MailInfomation mail) {
+        System.out.println("Vao quet lan 2 .");
         list.add(mail);
     }
 
     @Override
     public void queue(String to, String subject, String body) {
+        System.out.println("Vao quetat lan 1 .");
         queue(new MailInfomation(to, subject, body));
     }
 
     @Override
     @Scheduled(fixedDelay = 5000)
     public void run() {
+        System.out.println("vao phuong thuc run");
         while (!list.isEmpty()) {
             MailInfomation mail = list.remove(0);
             try {
+                System.out.println("Buoc cuoi va thong tin mail la : " + mail);
                 this.send(mail);
             } catch (Exception e) {
                 e.printStackTrace();
