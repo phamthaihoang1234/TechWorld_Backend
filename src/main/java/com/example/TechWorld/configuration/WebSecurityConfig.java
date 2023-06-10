@@ -55,30 +55,18 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
         http.authorizeRequests()
                 .antMatchers("api/products",
-                        "api/products/bestseller",
-                        "api/products/latest",
-                        "api/products/rated",
-                        "api/products/suggest/**",
                         "api/products/category/**",
                         "api/products/{id}",
                         "api/categories", "api/categories/{id}",
                         "api/rates/**",
                         "api/send-mail/**",
                         "api/cart/user/**",
-                        "api/orders/user/**",
-                        "api/favorites/email/**",
-                        "api/cartDetail/**",
                         "api/auth/email/**",
                         "api/auth/signin/**",
                         "api/auth/signin/**",
-                        "api/auth/send-mail-forgot-password-token",
-                        "forgot-password",
-                        "api/notification/**")
+                        "forgot-password"
+                        )
                 .permitAll();
-
-        http.authorizeRequests().antMatchers("api/orderDetail/**", "api/cart/**").access("hasRole('ROLE_USER')");
-
-        http.authorizeRequests().antMatchers("api/orderDetail/**", "api/cart/**", "api/statistical/**", "api/auth/**").access("hasRole('ROLE_ADMIN')");
 
         http.addFilterBefore(authenticationJwTokenFilter(), UsernamePasswordAuthenticationFilter.class);
     }
