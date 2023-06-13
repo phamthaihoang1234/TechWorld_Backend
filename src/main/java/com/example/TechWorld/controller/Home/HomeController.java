@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.TechWorld.common.Mapper;
-import com.example.TechWorld.dto.TrendingProductDto;
+import com.example.TechWorld.dto.model.TrendingProductDto;
 import com.example.TechWorld.model.Product;
 import com.example.TechWorld.service.implement.ProductServiceImplement;
 

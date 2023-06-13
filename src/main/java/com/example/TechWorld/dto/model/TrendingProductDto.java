@@ -1,19 +1,14 @@
-package com.example.TechWorld.dto;
-
-import org.springframework.stereotype.Component;
+package com.example.TechWorld.dto.model;
 
 import com.example.TechWorld.model.Category;
 
 import lombok.AllArgsConstructor;
-import lombok.Getter;
+import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
-@Getter
-@Setter
+@Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Component
 public class TrendingProductDto {
     private String name;
     private Double price;
