@@ -12,14 +12,14 @@ import org.springframework.web.bind.annotation.RestController;
 import com.example.TechWorld.common.Mapper;
 import com.example.TechWorld.dto.TrendingProductDto;
 import com.example.TechWorld.model.Product;
-import com.example.TechWorld.serviceImpl.ProductServiceImpl;
+import com.example.TechWorld.service.implement.ProductServiceImplement;
 
-@CrossOrigin(origins = "http://localhost:4200")
+@CrossOrigin("*")
 @RestController
 @RequestMapping
 public class HomeController {
     @Autowired
-    private ProductServiceImpl productServiceImpl;
+    private ProductServiceImplement productServiceImpl;
 
     @GetMapping("trending-products")
     public List<TrendingProductDto> GetTrendingProducts() {
