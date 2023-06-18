@@ -47,4 +47,13 @@ public class HomeController {
         }
         return tpdDtos;
     }
+
+    @GetMapping("all-products")
+    public List<TrendingProductDto> GetAllProducts() {
+        List<TrendingProductDto> tpdDtos = new ArrayList<>();
+        for (Product p : productServiceImpl.getAllProducts()) {
+            tpdDtos.add(Mapper.modelMapper.map(p, TrendingProductDto.class));
+        }
+        return tpdDtos;
+    }
 }
