@@ -54,20 +54,22 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 
         http.authorizeRequests()
-                .antMatchers("api/products",
-                        "api/products/category/**",
-                        "api/products/{id}",
-                        "api/categories", "api/categories/{id}",
-                        "api/rates/**",
-                        "api/send-mail/**",
-                        "api/cart/user/**",
-                        "api/auth/email/**",
-                        "api/auth/signin/**",
-                        "api/auth/signin/**",
-                        "forgot-password"
+                .antMatchers("/api/products",
+                        "/api/products/category/**",
+                        "/api/products/{id}",
+                        "/api/categories", "api/categories/{id}",
+                        "/api/rates/**",
+                        "/api/send-mail/**",
+                        "/api/cart/user/**",
+                        "/api/auth/email/**",
+                        "/api/auth/signin/**",
+                        "/forgot-password"
                         )
-                .permitAll();
-
+                .permitAll()
+                .antMatchers("/api/orderDetail/**", "/api/cart/**","/api/orders/**").access("hasRole('ROLE_USER')")
+                .antMatchers("/api/orderDetail/**", "/api/cart/**", "/api/statistical/**").access("hasRole('ROLE_ADMIN')")
+                .anyRequest().authenticated()
+        ;
         http.addFilterBefore(authenticationJwTokenFilter(), UsernamePasswordAuthenticationFilter.class);
     }
 
