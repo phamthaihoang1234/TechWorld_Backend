@@ -17,7 +17,7 @@ public class ProfileServiceImpl implements ProfileService{
 
     @Override
     public User getCurrentUser(CurrentUserRequest curRequest) {
-        return userRepo.findByEmail(curRequest.toString()).get();
+        return userRepo.findByEmail(curRequest.getUsername()).get();
     }
 
     
