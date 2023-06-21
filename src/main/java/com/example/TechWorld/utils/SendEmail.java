@@ -24,7 +24,7 @@ public class SendEmail {
     @Autowired
     SendMailService sendMailSer;
 
-    /*public void sendMailOrder(Order order) {
+    public void sendMailOrder(Order order) {
         SimpleDateFormat dt = new SimpleDateFormat("dd-MM-yyyy");
         List<OrderDetails> listOrderDetails = orderDetailRepo.findByOrder(order);
         StringBuilder content = new StringBuilder();
@@ -282,7 +282,7 @@ public class SendEmail {
                         + "</p>\r\n" + "                                                        </td>");
         content.append(FOOTER);
         sendMailSer.queue(order.getUser().getEmail(), "Huỷ đơn thành công", content.toString());
-    }*/
+    }
 
     public String format(String number) {
         DecimalFormat formatter = new DecimalFormat("###,###,###.##");
