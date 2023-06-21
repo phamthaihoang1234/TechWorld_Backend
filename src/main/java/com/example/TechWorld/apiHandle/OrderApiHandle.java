@@ -130,4 +130,19 @@ public class OrderApiHandle {
         }
     }
 
+    @GetMapping("success/{orderId}")
+    public ResponseEntity<Void> successOrder(@PathVariable("orderId") Long id) {
+        if (!orderRepository.existsById(id)) {
+            return ResponseEntity.notFound().build();
+        }
+
+        Order order = orderRepository.findById(id).get();
+        order.setStatus(2);
+        orderRepository.save(order);
+
+        sendMailUtil.sendMailOrderSuccess(order);
+        updateQuantityProduct(order);
+        return ResponseEntity.ok().build();
+    }
+
 }
