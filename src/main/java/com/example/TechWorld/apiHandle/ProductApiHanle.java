@@ -76,6 +76,17 @@ public class ProductApiHanle {
     }
 
 
+    @GetMapping("{id}")
+    public ResponseEntity<Product> getProductById(@PathVariable("id") Long id) {
+        if (!productRepository.existsById(id)) {
+            return ResponseEntity.notFound().build();
+        }
+        Product product = productRepository.findById(id).get();
+        return ResponseEntity.ok(product);
+    }
+
+
+
 
 
 
