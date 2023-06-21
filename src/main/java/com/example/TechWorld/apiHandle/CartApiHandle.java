@@ -33,6 +33,14 @@ public class CartApiHandle {
         return ResponseEntity.ok(cartRepository.findByUser(userRepository.findByEmail(email).get()));
     }
 
+    @PutMapping("/user/{email}")
+    public ResponseEntity<Cart> putCartUser(@PathVariable("email") String email, @RequestBody Cart cart) {
+        if (!userRepository.existsByEmail(email)) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(cartRepository.save(cart));
+    }
+
 
 
 }
