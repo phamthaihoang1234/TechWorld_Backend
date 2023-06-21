@@ -363,7 +363,7 @@ public class SendEmail {
             + "                                                <td width=\"25%\" align=\"left\" bgcolor=\"#eeeeee\" style=\"font-family: Open sans-serif; font-size: 18px; font-weight: 800; line-height: 24px; padding: 10px;\">Thành tiền</td>\r\n"
             + "                                            </tr>";
 
-    /*static String HEADERCANCEL = "<body style=\"margin: 0 !important; padding: 0 !important; background-color: #fcb800;\" bgcolor=\"#fcb800\">\r\n"
+    static String HEADERCANCEL = "<body style=\"margin: 0 !important; padding: 0 !important; background-color: #fcb800;\" bgcolor=\"#fcb800\">\r\n"
             + "    <div style=\"display: none; font-size: 1px; color: #fefefe; line-height: 1px; font-family: Open Sans, Helvetica, Arial, sans-serif; max-height: 0px; max-width: 0px; opacity: 0; overflow: hidden;\">\r\n"
             + "        Vegana Store chuyên bán thực phẩm sạch\r\n" + "    </div>\r\n"
             + "    <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"100%\">\r\n" + "        <tr>\r\n"
@@ -398,8 +398,7 @@ public class SendEmail {
             + "                                                <td width=\"25%\" align=\"left\" bgcolor=\"#eeeeee\" style=\"font-family: Open sans-serif; font-size: 18px; font-weight: 800; line-height: 24px; padding: 10px;\">Số lượng</td>\r\n"
             + "                                                <td width=\"25%\" align=\"left\" bgcolor=\"#eeeeee\" style=\"font-family: Open sans-serif; font-size: 18px; font-weight: 800; line-height: 24px; padding: 10px;\">Thành tiền</td>\r\n"
             + "                                            </tr>";
-*/
-    /*static String HEADER = "<body style=\"margin: 0 !important; padding: 0 !important; background-color: #fcb800;\" bgcolor=\"#fcb800\">\r\n"
+    static String HEADER = "<body style=\"margin: 0 !important; padding: 0 !important; background-color: #fcb800;\" bgcolor=\"#fcb800\">\r\n"
             + "        <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"100%\">\r\n"
             + "            <tr>\r\n"
             + "                <td align=\"center\" style=\"background-color: #eeeeee;\" bgcolor=\"#eeeeee\">\r\n"
@@ -432,13 +431,13 @@ public class SendEmail {
             + "                                                    <td width=\"25%\" align=\"left\" bgcolor=\"#eeeeee\" style=\"font-family: Open sans-serif; font-size: 18px; font-weight: 800; line-height: 24px; padding: 10px;\">Tên</td>\r\n"
             + "                                                    <td width=\"25%\" align=\"left\" bgcolor=\"#eeeeee\" style=\"font-family: Open sans-serif; font-size: 18px; font-weight: 800; line-height: 24px; padding: 10px;\">Số lượng</td>\r\n"
             + "                                                    <td width=\"25%\" align=\"left\" bgcolor=\"#eeeeee\" style=\"font-family: Open sans-serif; font-size: 18px; font-weight: 800; line-height: 24px; padding: 10px;\">Thành tiền</td>\r\n"
-            + "                                                </tr>";*/
-    /*static String BODY2 = "</table>\r\n" + "                                        </td>\r\n"
+            + "                                                </tr>";
+    static String BODY2 = "</table>\r\n" + "                                        </td>\r\n"
             + "                                    </tr>\r\n" + "                                    <tr>\r\n"
             + "                                        <td align=\"left\" style=\"padding-top: 20px;\">\r\n"
             + "                                            <table cellspacing=\"0\" cellpadding=\"0\" border=\"0\" width=\"100%\">\r\n"
-            + "                                                <tr>";*/
-    /*static String BODY3 = "</tr>\r\n" + "                                            </table>\r\n"
+            + "                                                <tr>";
+    static String BODY3 = "</tr>\r\n" + "                                            </table>\r\n"
             + "                                        </td>\r\n" + "                                    </tr>\r\n"
             + "                                </table>\r\n" + "                            </td>\r\n"
             + "                        </tr>\r\n" + "                        <tr>\r\n"
@@ -449,15 +448,15 @@ public class SendEmail {
             + "                                            <div style=\"display:inline-block; max-width:50%; min-width:240px; vertical-align:top; width:100%;\">\r\n"
             + "                                                <table align=\"left\" border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"100%\" style=\"max-width:300px;\">\r\n"
             + "                                                    <tr>\r\n"
-            + "                                                        <td align=\"left\" valign=\"top\" style=\"font-family: Open sans-serif; font-size: 20px; font-weight: 400; line-height: 24px;\">";*/
-    /*static String BODY4 = "</td>\r\n" + "                                                    </tr>\r\n"
+            + "                                                        <td align=\"left\" valign=\"top\" style=\"font-family: Open sans-serif; font-size: 20px; font-weight: 400; line-height: 24px;\">";
+    static String BODY4 = "</td>\r\n" + "                                                    </tr>\r\n"
             + "                                                </table>\r\n"
             + "                                            </div>\r\n"
             + "                                            <div style=\"display:inline-block; max-width:50%; min-width:240px; vertical-align:top; width:100%;\">\r\n"
             + "                                                <table align=\"left\" border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"100%\" style=\"max-width:300px;\">\r\n"
             + "                                                    <tr>\r\n"
-            + "                                                        <td align=\"left\" valign=\"top\" style=\"font-family: Open sans-serif; font-size: 20px; font-weight: 400; line-height: 24px;\">";*/
-    /*static String FOOTER = "</tr>\r\n" + "                                                </table>\r\n"
+            + "                                                        <td align=\"left\" valign=\"top\" style=\"font-family: Open sans-serif; font-size: 20px; font-weight: 400; line-height: 24px;\">";
+    static String FOOTER = "</tr>\r\n" + "                                                </table>\r\n"
             + "                                            </div>\r\n"
             + "                                        </td>\r\n" + "                                    </tr>\r\n"
             + "                                </table>\r\n" + "                            </td>\r\n"
@@ -471,5 +470,5 @@ public class SendEmail {
             + "                                        </td>\r\n" + "                                    </tr>\r\n"
             + "\r\n" + "                                </table>\r\n" + "                            </td>\r\n"
             + "                        </tr>\r\n" + "                    </table>\r\n" + "                </td>\r\n"
-            + "            </tr>\r\n" + "        </table>\r\n" + "    </body>";*/
+            + "            </tr>\r\n" + "        </table>\r\n" + "    </body>";
 }
