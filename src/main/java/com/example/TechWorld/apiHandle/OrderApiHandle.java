@@ -1,14 +1,14 @@
 package com.example.TechWorld.apiHandle;
 
 
-import com.example.TechWorld.model.Order;
-import com.example.TechWorld.model.User;
+import com.example.TechWorld.model.*;
 import com.example.TechWorld.repository.*;
 import com.example.TechWorld.utils.SendEmail;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Date;
 import java.util.List;
 
 @CrossOrigin("*")
@@ -61,4 +61,33 @@ public class OrderApiHandle {
         Order order = orderRepository.findById(id).get();
         return ResponseEntity.ok(order);
     }
+
+    @PostMapping("/{email}")
+    public ResponseEntity<Order> checkout(@PathVariable("email") String email, @RequestBody Cart cart) {
+        if (!userRepository.existsByEmail(email) || !cartRepository.existsById(cart.getCartId())) {
+            return ResponseEntity.notFound().build();
+        }
+
+        List<CartDetail> items = cartDetailRepository.findByCart(cart);
+        Double amount = 0.0;
+        for (CartDetail item : items) {
+            amount += item.getPrice();
+        }
+
+        Order order = orderRepository.save(new Order(0L, new Date(), amount, cart.getAddress(), cart.getPhoneNumber(), 0,
+                userRepository.findByEmail(email).get()));
+
+        for (CartDetail item : items) {
+            OrderDetails orderDetail = new OrderDetails(0L, item.getQuantity(), item.getPrice(), item.getProduct(), order);
+            orderDetailRepository.save(orderDetail);
+        }
+
+        for (CartDetail item : items) {
+            cartDetailRepository.delete(item);
+        }
+
+        sendMailUtil.sendMailOrder(order);
+        return ResponseEntity.ok(order);
+    }
+
 }
