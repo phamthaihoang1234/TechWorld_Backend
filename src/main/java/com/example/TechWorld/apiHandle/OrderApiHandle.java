@@ -2,14 +2,12 @@ package com.example.TechWorld.apiHandle;
 
 
 import com.example.TechWorld.model.Order;
+import com.example.TechWorld.model.User;
 import com.example.TechWorld.repository.*;
 import com.example.TechWorld.utils.SendEmail;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -45,5 +43,13 @@ public class OrderApiHandle {
         return ResponseEntity.ok(orders);
     }
 
-
+    @GetMapping("/user/{email}")
+    public ResponseEntity<List<Order>> getAllOrdersByUser(@PathVariable("email") String email) {
+        if (!userRepository.existsByEmail(email)) {
+            return ResponseEntity.notFound().build();
+        }
+        User user = userRepository.findByEmail(email).get();
+        List<Order> orders = orderRepository.findByUserOrderByOrdersIdDesc(user);
+        return ResponseEntity.ok(orders);
+    }
 }
