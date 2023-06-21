@@ -118,4 +118,16 @@ public class OrderApiHandle {
         return ResponseEntity.ok().build();
     }
 
+    private void updateQuantityProduct(Order order) {
+        List<OrderDetails> orderDetails = orderDetailRepository.findByOrder(order);
+        for (OrderDetails orderDetail : orderDetails) {
+            Product product = productRepository.findById(orderDetail.getProduct().getProductId()).get();
+            if (product != null) {
+                product.setQuantity(product.getQuantity() - orderDetail.getQuantity());
+                product.setSold(product.getSold() + orderDetail.getQuantity());
+                productRepository.save(product);
+            }
+        }
+    }
+
 }
