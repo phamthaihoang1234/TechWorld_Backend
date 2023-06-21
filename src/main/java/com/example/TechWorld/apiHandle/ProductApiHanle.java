@@ -1,6 +1,7 @@
 package com.example.TechWorld.apiHandle;
 
 
+import com.example.TechWorld.model.Category;
 import com.example.TechWorld.model.Product;
 import com.example.TechWorld.repository.CategoryRepository;
 import com.example.TechWorld.repository.ProductRepository;
@@ -61,6 +62,16 @@ public class ProductApiHanle {
     @GetMapping("rated")
     public ResponseEntity<List<Product>> getRatedProducts() {
         List<Product> products = productRepository.findProductRated();
+        return ResponseEntity.ok(products);
+    }
+
+    @GetMapping("category/{id}")
+    public ResponseEntity<List<Product>> getProductsByCategory(@PathVariable("id") Long id) {
+        if (!categoryRepository.existsById(id)) {
+            return ResponseEntity.notFound().build();
+        }
+        Category category = categoryRepository.findById(id).get();
+        List<Product> products = productRepository.findByCategory(category);
         return ResponseEntity.ok(products);
     }
 
