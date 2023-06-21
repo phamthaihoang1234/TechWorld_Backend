@@ -72,4 +72,23 @@ public class CartDetailApiHandle {
         return ResponseEntity.ok(cartDetailRepository.save(detail));
     }
 
+    @DeleteMapping("{id}")
+    public ResponseEntity<Void> delete(@PathVariable("id") Long id) {
+        if (!cartDetailRepository.existsById(id)) {
+            return ResponseEntity.notFound().build();
+        }
+        cartDetailRepository.deleteById(id);
+        return ResponseEntity.ok().build();
+    }
+
+    @PutMapping()
+    public ResponseEntity<CartDetail> put(@RequestBody CartDetail detail) {
+        if (!cartRepository.existsById(detail.getCart().getCartId())) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(cartDetailRepository.save(detail));
+    }
+
+
+
 }
