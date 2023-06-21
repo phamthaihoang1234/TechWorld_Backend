@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.TechWorld.common.Mapper;
-import com.example.TechWorld.dto.model.PersonalProfileDto;
 import com.example.TechWorld.dto.request.CurrentUserRequest;
 import com.example.TechWorld.service.implement.ProfileServiceImpl;
 
@@ -23,7 +22,7 @@ public class ProfileController {
     
     @PostMapping("/profile")
     public ResponseEntity<?> getPersonalProfile(@RequestBody CurrentUserRequest curRequest) {
-        return ResponseEntity.ok(Mapper.modelMapper.map(profileService.getCurrentUser(curRequest), PersonalProfileDto.class));
+        return ResponseEntity.ok(profileService.getCurrentUser(curRequest));
     }
 
 }
