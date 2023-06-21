@@ -6,10 +6,7 @@ import com.example.TechWorld.repository.CategoryRepository;
 import com.example.TechWorld.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -51,6 +48,13 @@ public class ProductApiHanle {
     @GetMapping("bestseller-admin")
     public ResponseEntity<List<Product>> getBestSellingProductsForAdmin() {
         List<Product> products = productRepository.findTop10ByOrderBySoldDesc();
+        return ResponseEntity.ok(products);
+    }
+
+    @GetMapping("suggest/{categoryId}/{productId}")
+    public ResponseEntity<List<Product>> suggestProducts(@PathVariable("categoryId") Long categoryId,
+                                                         @PathVariable("productId") Long productId) {
+        List<Product> products = productRepository.findProductSuggest(categoryId, productId, categoryId, categoryId);
         return ResponseEntity.ok(products);
     }
 
