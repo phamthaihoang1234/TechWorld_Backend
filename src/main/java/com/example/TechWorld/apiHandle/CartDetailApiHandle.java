@@ -2,6 +2,7 @@ package com.example.TechWorld.apiHandle;
 
 
 import com.example.TechWorld.model.CartDetail;
+import com.example.TechWorld.model.Product;
 import com.example.TechWorld.repository.CartDetailRepository;
 import com.example.TechWorld.repository.CartRepository;
 import com.example.TechWorld.repository.ProductRepository;
@@ -41,6 +42,34 @@ public class CartDetailApiHandle {
             return ResponseEntity.notFound().build();
         }
         return ResponseEntity.ok(cartDetailRepository.findByCart(cartRepository.findById(id).get()));
+    }
+
+    @PostMapping()
+    public ResponseEntity<CartDetail> post(@RequestBody CartDetail detail) {
+        if (!cartRepository.existsById(detail.getCart().getCartId())) {
+            return ResponseEntity.notFound().build();
+        }
+        boolean check = false;
+        List<Product> productList = productRepository.findByStatusTrue();
+        Product product = productRepository.findByProductIdAndStatusTrue(detail.getProduct().getProductId());
+        for (Product p : productList) {
+            if (p.getProductId() == product.getProductId()) {
+                check = true;
+                break;
+            }
+        }
+        if (!check) {
+            return ResponseEntity.notFound().build();
+        }
+        List<CartDetail> detailList = cartDetailRepository.findByCart(cartRepository.findById(detail.getCart().getCartId()).get());
+        for (CartDetail item : detailList) {
+            if (item.getProduct().getProductId() == detail.getProduct().getProductId()) {
+                item.setQuantity(item.getQuantity() + 1);
+                item.setPrice(item.getPrice() + detail.getPrice());
+                return ResponseEntity.ok(cartDetailRepository.save(item));
+            }
+        }
+        return ResponseEntity.ok(cartDetailRepository.save(detail));
     }
 
 }
