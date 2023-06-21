@@ -104,4 +104,18 @@ public class OrderApiHandle {
         return ResponseEntity.ok().build();
     }
 
+    @GetMapping("cancel/{orderId}")
+    public ResponseEntity<Void> cancelOrder(@PathVariable("orderId") Long id) {
+        if (!orderRepository.existsById(id)) {
+            return ResponseEntity.notFound().build();
+        }
+
+        Order order = orderRepository.findById(id).get();
+        order.setStatus(3);
+        orderRepository.save(order);
+
+        sendMailUtil.sendMailOrderCancel(order);
+        return ResponseEntity.ok().build();
+    }
+
 }
