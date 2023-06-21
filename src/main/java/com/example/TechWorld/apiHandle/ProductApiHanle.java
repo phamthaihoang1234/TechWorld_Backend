@@ -58,6 +58,12 @@ public class ProductApiHanle {
         return ResponseEntity.ok(products);
     }
 
+    @GetMapping("rated")
+    public ResponseEntity<List<Product>> getRatedProducts() {
+        List<Product> products = productRepository.findProductRated();
+        return ResponseEntity.ok(products);
+    }
+
 
 
 
