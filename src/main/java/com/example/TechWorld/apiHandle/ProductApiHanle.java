@@ -85,6 +85,15 @@ public class ProductApiHanle {
         return ResponseEntity.ok(product);
     }
 
+    @PostMapping
+    public ResponseEntity<Product> createProduct(@RequestBody Product product) {
+        if (productRepository.existsById(product.getProductId())) {
+            return ResponseEntity.badRequest().build();
+        }
+        Product savedProduct = productRepository.save(product);
+        return ResponseEntity.ok(savedProduct);
+    }
+
 
 
 
