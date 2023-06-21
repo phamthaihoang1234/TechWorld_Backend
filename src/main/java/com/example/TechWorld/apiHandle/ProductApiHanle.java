@@ -48,6 +48,12 @@ public class ProductApiHanle {
         return ResponseEntity.ok(products);
     }
 
+    @GetMapping("bestseller-admin")
+    public ResponseEntity<List<Product>> getBestSellingProductsForAdmin() {
+        List<Product> products = productRepository.findTop10ByOrderBySoldDesc();
+        return ResponseEntity.ok(products);
+    }
+
 
 
 

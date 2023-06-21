@@ -23,6 +23,10 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
     @Query(nativeQuery = true, value = "select * from products p order by entered_date desc limit 10")
     List<Product> getHighlightProducts();
 
+    List<Product> findTop10ByOrderBySoldDesc();
+
+
+
 
     List<Product> findByStatusTrue();
 
