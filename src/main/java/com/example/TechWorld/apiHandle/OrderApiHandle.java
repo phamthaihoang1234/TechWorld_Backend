@@ -52,4 +52,13 @@ public class OrderApiHandle {
         List<Order> orders = orderRepository.findByUserOrderByOrdersIdDesc(user);
         return ResponseEntity.ok(orders);
     }
+
+    @GetMapping("{id}")
+    public ResponseEntity<Order> getByOrderId(@PathVariable("id") Long id) {
+        if (!orderRepository.existsById(id)) {
+            return ResponseEntity.notFound().build();
+        }
+        Order order = orderRepository.findById(id).get();
+        return ResponseEntity.ok(order);
+    }
 }
