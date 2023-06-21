@@ -29,5 +29,10 @@ public class ProductServiceImplement implements ProductService {
     public List<Product> getHighlightProducts() {
         return productRepo.getHighlightProducts();
     }
+
+    @Override
+    public List<Product> getAllProducts() {
+        return productRepo.findAll();
+    }
     
 }

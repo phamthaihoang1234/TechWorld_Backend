@@ -11,4 +11,5 @@ public interface ProductService {
     public abstract List<Product> getTrendingProducts();
     public abstract List<Product> getBestSelleProducts();
     public abstract List<Product> getHighlightProducts();
+    public abstract List<Product> getAllProducts();
 }
