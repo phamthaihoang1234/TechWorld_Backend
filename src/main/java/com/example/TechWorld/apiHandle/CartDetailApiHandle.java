@@ -9,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @CrossOrigin("*")
 @RestController
 @RequestMapping("api/cartDetail")
@@ -31,6 +33,14 @@ public class CartDetailApiHandle {
             return ResponseEntity.notFound().build();
         }
         return ResponseEntity.ok(cartDetailRepository.findById(id).get());
+    }
+
+    @GetMapping("cart/{id}")
+    public ResponseEntity<List<CartDetail>> getAllCartDetailsByCartId(@PathVariable("id") Long id) {
+        if (!cartRepository.existsById(id)) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(cartDetailRepository.findByCart(cartRepository.findById(id).get()));
     }
 
 }
