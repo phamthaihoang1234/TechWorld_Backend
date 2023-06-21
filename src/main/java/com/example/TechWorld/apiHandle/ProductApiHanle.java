@@ -94,6 +94,28 @@ public class ProductApiHanle {
         return ResponseEntity.ok(savedProduct);
     }
 
+    @PutMapping("{id}")
+    public ResponseEntity<Product> put(@PathVariable("id") Long id, @RequestBody Product product) {
+        if (!id.equals(product.getProductId())) {
+            return ResponseEntity.badRequest().build();
+        }
+        if (!productRepository.existsById(id)) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(productRepository.save(product));
+    }
+
+    @DeleteMapping("{id}")
+    public ResponseEntity<Void> delete(@PathVariable("id") Long id) {
+        if (!productRepository.existsById(id)) {
+            return ResponseEntity.notFound().build();
+        }
+        Product p = productRepository.findById(id).get();
+        p.setStatus(false);
+        productRepository.save(p);
+        return ResponseEntity.ok().build();
+    }
+
 
 
 
