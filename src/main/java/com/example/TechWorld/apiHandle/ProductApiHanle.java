@@ -42,6 +42,12 @@ public class ProductApiHanle {
 
     }
 
+    @GetMapping("bestseller")
+    public ResponseEntity<List<Product>> getBestSellingProducts() {
+        List<Product> products = productRepository.findByStatusTrueOrderBySoldDesc();
+        return ResponseEntity.ok(products);
+    }
+
 
 
 
