@@ -1,6 +1,7 @@
 package com.example.TechWorld.apiHandle;
 
 
+import com.example.TechWorld.repository.CategoryRepository;
 import com.example.TechWorld.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -13,8 +14,14 @@ import org.springframework.web.bind.annotation.RestController;
 public class ProductApiHanle {
 
 
-@Autowired
+    @Autowired
     private ProductRepository productRepository;
+
+
+    @Autowired
+    private CategoryRepository categoryRepository;
+
+
 
 
 
