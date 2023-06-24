@@ -14,6 +14,10 @@ import com.example.TechWorld.repository.RoleRepository;
 import com.example.TechWorld.repository.UserRepository;
 import com.example.TechWorld.service.SendMailService;
 import com.example.TechWorld.service.implement.UserDetailsImpl;
+import lombok.AccessLevel;
+import lombok.RequiredArgsConstructor;
+import lombok.experimental.FieldDefaults;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -29,9 +33,11 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-@CrossOrigin("*")
 @RestController
 @RequestMapping("api/auth")
+@Slf4j
+@RequiredArgsConstructor
+@FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public class UserApiHandle {
 
     @Autowired
