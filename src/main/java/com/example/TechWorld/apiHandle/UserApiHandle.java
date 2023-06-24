@@ -61,14 +61,14 @@ public class UserApiHandle {
 
         Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(loginRequest.getEmail(), loginRequest.getPassword()));
-
-                SecurityContextHolder.getContext().setAuthentication(authentication);
+        System.out.println("dddddddđ"+ authentication);
+        SecurityContextHolder.getContext().setAuthentication(authentication);
         String jwt = jwtUtils.generateJwtToken(authentication);
 
         UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
         List<String> roles = userDetails.getAuthorities().stream().map(item -> item.getAuthority())
                 .collect(Collectors.toList());
-
+        System.out.println("dddddddđ"+userDetails.getEmail());
         return ResponseEntity.ok(new JwtResponese(jwt, userDetails.getId(), userDetails.getName(),
                 userDetails.getEmail(), userDetails.getPassword(), userDetails.getPhone(), userDetails.getAddress(),
                 userDetails.getGender(), userDetails.getStatus(), userDetails.getImage(), userDetails.getRegisterDate(),
@@ -92,7 +92,7 @@ public class UserApiHandle {
         }
 
         if (userRepository.existsByEmail(signupRequest.getEmail())) {
-            return ResponseEntity.badRequest().body(new MessageResponse("Error: Email is already in use!"));
+            return ResponseEntity.badRequest().body(new MessageResponse("Error: Email is alreadv in use!"));
         }
 
 

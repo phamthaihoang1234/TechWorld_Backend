@@ -30,4 +30,16 @@ public class Order implements Serializable {
     @ManyToOne
     @JoinColumn(name = "userId")
     private User user;
+
+    public Order(Long ordersId, Date orderDate, Double amount, String address, String phoneNumber, int status, User user) {
+        this.ordersId = ordersId;
+        this.address = address;
+        this.phoneNumber = phoneNumber;
+        this.orderDate = orderDate;
+        this.amount = amount;
+        this.status = status;
+        this.user = user;
+    }
+
+
 }
