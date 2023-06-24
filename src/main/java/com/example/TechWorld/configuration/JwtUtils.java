@@ -24,18 +24,6 @@ public class JwtUtils {
     @Value("${bezkoder.app.jwtExpirationMs}")
     private int jwtExpirationMs;
 
-
-
-    public String doGenerateToken(String email) {
-        Claims claims = Jwts.claims().setSubject(email);
-        claims.put("scopes", Arrays.asList(new SimpleGrantedAuthority("ROLE_ADMIN")));
-
-        return Jwts.builder().setClaims(claims).setIssuer("http://devglan.com")
-                .setIssuedAt(new Date(System.currentTimeMillis()))
-                .setExpiration(new Date(System.currentTimeMillis() + 5 * 60 * 60 * 1000))
-                .signWith(SignatureAlgorithm.HS256, jwtSecrect).compact();
-    }
-
     public String generateJwtToken(Authentication authentication) {
 
         UserDetailsImpl userPrincipal = (UserDetailsImpl) authentication.getPrincipal();
@@ -46,6 +34,16 @@ public class JwtUtils {
         return Jwts.builder().setSubject((userPrincipal.getEmail())).setIssuedAt(new Date())
                 .setExpiration(new Date((new Date()).getTime() + jwtExpirationMs))
                 .signWith(SignatureAlgorithm.HS512, jwtSecrect).compact();
+    }
+
+    public String doGenerateToken(String email) {
+        Claims claims = Jwts.claims().setSubject(email);
+        claims.put("scopes", Arrays.asList(new SimpleGrantedAuthority("ROLE_ADMIN")));
+
+        return Jwts.builder().setClaims(claims).setIssuer("http://devglan.com")
+                .setIssuedAt(new Date(System.currentTimeMillis()))
+                .setExpiration(new Date(System.currentTimeMillis() + 5 * 60 * 60 * 1000))
+                .signWith(SignatureAlgorithm.HS256, jwtSecrect).compact();
     }
 
     public String getEmailFromJwtToken(String token) {
