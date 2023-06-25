@@ -9,6 +9,7 @@ import com.example.TechWorld.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -35,6 +36,12 @@ public class RateApiHandle {
     @GetMapping
     public ResponseEntity<List<Rate>> findAll(){return ResponseEntity.ok(rateRepository.findAllByOrderByIdDesc());}
 
-
+    @GetMapping("{orderDetailId}")
+    public ResponseEntity<Rate> findByOrderDetailId(@PathVariable Long orderDetailId) {
+        if (!orderDetailRepository.existsById(orderDetailId)) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(rateRepository.findByOrderDetail(orderDetailRepository.findById(orderDetailId).get()));
+    }
 
 }
