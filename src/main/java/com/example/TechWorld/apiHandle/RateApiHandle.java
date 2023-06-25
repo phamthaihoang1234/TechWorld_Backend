@@ -44,4 +44,12 @@ public class RateApiHandle {
         return ResponseEntity.ok(rateRepository.findByOrderDetail(orderDetailRepository.findById(orderDetailId).get()));
     }
 
+    @GetMapping("/product/{id}")
+    public ResponseEntity<List<Rate>> findByProductId(@PathVariable("id") Long id) {
+        if (!productRepository.existsById(id)) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(rateRepository.findByProductOrderByIdDesc(productRepository.findById(id).get()));
+    }
+
 }
