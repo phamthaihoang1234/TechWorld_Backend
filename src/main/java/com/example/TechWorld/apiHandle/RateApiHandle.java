@@ -8,10 +8,7 @@ import com.example.TechWorld.repository.RateRepository;
 import com.example.TechWorld.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -50,6 +47,37 @@ public class RateApiHandle {
             return ResponseEntity.notFound().build();
         }
         return ResponseEntity.ok(rateRepository.findByProductOrderByIdDesc(productRepository.findById(id).get()));
+    }
+
+    @PostMapping
+    public ResponseEntity<Rate> post(@RequestBody Rate rate) {
+        if (!userRepository.existsById(rate.getUser().getUserId())) {
+            return ResponseEntity.notFound().build();
+        }
+        if (!productRepository.existsById(rate.getProduct().getProductId())) {
+            return ResponseEntity.notFound().build();
+        }
+        if (!orderDetailRepository.existsById(rate.getOrderDetail().getOrderDetailId())) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(rateRepository.save(rate));
+    }
+
+    @PutMapping
+    public ResponseEntity<Rate> put(@RequestBody Rate rate) {
+        if (!rateRepository.existsById(rate.getId())) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(rateRepository.save(rate));
+    }
+
+    @DeleteMapping("{id}")
+    public ResponseEntity<Void> delete(@PathVariable("id") Long id) {
+        if (!rateRepository.existsById(id)) {
+            return ResponseEntity.notFound().build();
+        }
+        rateRepository.deleteById(id);
+        return ResponseEntity.ok().build();
     }
 
 }
