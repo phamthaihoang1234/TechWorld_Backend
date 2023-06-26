@@ -1,11 +1,16 @@
 package com.example.TechWorld.configuration;
 
 import com.example.TechWorld.service.implement.UserDetailsServiceImpl;
+import lombok.AccessLevel;
+import lombok.RequiredArgsConstructor;
+import lombok.experimental.FieldDefaults;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
+import org.springframework.security.web.util.matcher.RequestMatcher;
 import org.springframework.util.StringUtils;
 import org.springframework.web.filter.OncePerRequestFilter;
 
@@ -15,13 +20,20 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+
+@Slf4j
+@RequiredArgsConstructor
+@FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public class AuthTokenFilter extends OncePerRequestFilter {
 
-    @Autowired
-    private JwtUtils jwtUtils;
+    JwtUtils jwtUtils;
+    RequestMatcher skipPathRequestMatcher;
+    UserDetailsServiceImpl userDetailsService;
 
-    @Autowired
-    private UserDetailsServiceImpl userDetailsService;
+    @Override
+    protected boolean shouldNotFilter(HttpServletRequest request) {
+        return skipPathRequestMatcher.matches(request);
+    }
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
@@ -29,6 +41,8 @@ public class AuthTokenFilter extends OncePerRequestFilter {
 
         try {
             String jwt = parseJwt(request);
+            System.out.println("jwt thu duoc la: {}"+ jwt);
+            log.info("jwt thu duoc la: {}", jwt);
             if (jwt != null && jwtUtils.validateJwtToken(jwt)) {
                 String email = jwtUtils.getEmailFromJwtToken(jwt);
 
@@ -41,7 +55,8 @@ public class AuthTokenFilter extends OncePerRequestFilter {
                 SecurityContextHolder.getContext().setAuthentication(auth);
             }
         } catch (Exception e) {
-            logger.error("Cannot set user authentication: {}", e);
+
+            log.error("Cannot set user authentication", e);
         }
 
         filterChain.doFilter(request, response);
