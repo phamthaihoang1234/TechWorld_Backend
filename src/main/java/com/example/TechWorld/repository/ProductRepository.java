@@ -2,6 +2,7 @@ package com.example.TechWorld.repository;
 
 import java.util.List;
 
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
@@ -21,4 +22,9 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
 
     @Query(nativeQuery = true, value = "select * from products p order by entered_date desc limit 10")
     List<Product> getHighlightProducts();
+
+    @Query(nativeQuery = true, 
+    value = "select * from products p",
+    countQuery = "select count(product_id) from products p")
+    List<Product> getAllProducts(Pageable page);
 }
