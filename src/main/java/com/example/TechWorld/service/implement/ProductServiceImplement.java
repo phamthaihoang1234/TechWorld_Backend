@@ -34,7 +34,7 @@ public class ProductServiceImplement implements ProductService {
 
     @Override
     public List<Product> getAllProducts(int page) {
-        return productRepo.getAllProducts(PageRequest.of(page, 10));
+        return productRepo.getAllProducts(PageRequest.of(page, 12));
     }
     
 }
