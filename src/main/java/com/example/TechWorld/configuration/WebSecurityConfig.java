@@ -60,46 +60,51 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     @Override
-    protected void configure(HttpSecurity http) throws Exception {
-        http
-                .csrf().disable().authorizeRequests()
-                .antMatchers(HttpMethod.OPTIONS, "/**").permitAll()
-                .antMatchers("/api/orderDetail/**", "/api/cart/**","/api/cartDetail/**","/api/orders/**").access("hasRole('ROLE_USER')")
-                .antMatchers( "/api/statistical/**").access("hasRole('ROLE_ADMIN')")
-                .antMatchers("/api/products",
-                        "/api/products/bestseller",
-                        "/api/products/latest",
-                        "/api/products/rated",
-                        "/api/products/suggest/**",
-                        "/api/products/category/**",
-                        "/api/products/{id}",
-                        "/api/categories", "api/categories/{id}",
-                        "/api/rates/**",
-                        "/api/send-mail/**",
-                        "/api/favorites/email/**",
-                        "/api/auth/email/**",
-                        "/api/auth/signin/**",
-                        "/api/auth/send-mail-forgot-password-token",
-                        "/forgot-password",
-                        "/api/notification/**",
-                        "/api/provinces/**",
-                        "/api/districts/**",
-                        "/api/wards/**",
-                        "/api/district/**",
-                        "/api/provinces/**",
-                        "/api/ward/**"
+	protected void configure(HttpSecurity http) throws Exception {
+		http
+				.csrf().disable().authorizeRequests()
+				.antMatchers(HttpMethod.OPTIONS, "/**").permitAll()
+				.antMatchers("/api/orderDetail/**").access("hasRole('ROLE_USER')")
+				.antMatchers( "/api/orderDetail/**").access("hasRole('ROLE_ADMIN')")
+				.antMatchers("/api/products",
+						"/api/products/bestseller",
+						"/api/products/latest",
+						"/api/products/rated",
+						"/api/products/suggest/**",
+						"/api/products/category/**",
+						"/api/products/{id}",
+						"/api/categories", "api/categories/{id}",
+						"/api/rates/**",
+						"/api/send-mail/**",
+						"/api/favorites/email/**",
+						"/api/auth/email/**",
+						"/api/auth/signin/**",
+						"/api/auth/signup/**",
+						"/api/auth/{id}",
+						"/api/auth/send-mail-forgot-password-token",
+						"/forgot-password",
+						"/api/notification/**",
+						"/api/provinces/**",
+						"/api/districts/**",
+						"/api/wards/**",
+						"/api/district/**",
+						"/api/provinces/**",
+						"/api/ward/**",
+						"/api/orders/guess/**",
+						"/api/statistical/**"
 
 
-                )
-                .permitAll().anyRequest().authenticated()
-                .and()
-                .exceptionHandling()
-                .authenticationEntryPoint(unauthorizedHandler)
-                .and()
-                .sessionManagement()
-                .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 
-        http.addFilterBefore(authenticationJwTokenFilter(), UsernamePasswordAuthenticationFilter.class);
-    }
+				)
+				.permitAll().anyRequest().authenticated()
+				.and()
+				.exceptionHandling()
+				.authenticationEntryPoint(unauthorizedHandler)
+				.and()
+				.sessionManagement()
+				.sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+
+				http.addFilterBefore(authenticationJwTokenFilter(), UsernamePasswordAuthenticationFilter.class);
+	}
 
 }
