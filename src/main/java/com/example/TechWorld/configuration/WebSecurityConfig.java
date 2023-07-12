@@ -64,7 +64,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http
                 .csrf().disable().authorizeRequests()
                 .antMatchers(HttpMethod.OPTIONS, "/**").permitAll()
-                .antMatchers("/api/orderDetail/**", "/api/cart/**","/api/cartDetail/**","/api/orders/**").access("hasRole('ROLE_USER')")
+                .antMatchers("/api/orderDetail/**", 
+                            "/api/cart/**",
+                            "/api/cartDetail/**",
+                            "/api/orders/**").access("hasRole('ROLE_USER')")
                 .antMatchers( "/api/statistical/**").access("hasRole('ROLE_ADMIN')")
                 .antMatchers("/api/products",
                         "/api/products/bestseller",
@@ -87,8 +90,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                         "/api/wards/**",
                         "/api/district/**",
                         "/api/provinces/**",
-                        "/api/ward/**"
-
+                        "/api/ward/**",
+                        "/api/auth/signup/**"
 
                 )
                 .permitAll().anyRequest().authenticated()

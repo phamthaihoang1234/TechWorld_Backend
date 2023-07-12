@@ -3,6 +3,8 @@ package com.example.TechWorld.repository;
 import java.util.List;
 
 import com.example.TechWorld.model.Category;
+
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
@@ -66,4 +68,7 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
             + "Order by category_id = ? desc, Rate desc", nativeQuery = true)
     List<Product> findProductSuggest(Long id, Long id2, Long id3, Long id4);
 
+    @Query(nativeQuery = true, value = "select * from products p",
+           countQuery = "select count(product_id) from products p")
+    List<Product> getAllProducts(Pageable page);
 }

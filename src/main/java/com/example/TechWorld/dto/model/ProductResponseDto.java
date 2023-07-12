@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class TrendingProductDto {
+public class ProductResponseDto {
     private String name;
     private Double price;
     private int discount;
