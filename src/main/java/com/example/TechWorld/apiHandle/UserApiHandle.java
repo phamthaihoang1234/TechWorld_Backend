@@ -19,15 +19,19 @@ import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
+import org.springframework.http.*;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.RestTemplate;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.HashSet;
 import java.util.List;
@@ -61,6 +65,11 @@ public class UserApiHandle {
 
     @Autowired
     SendMailService sendMailService;
+
+    @Autowired
+    private RestTemplate restTemplate;
+
+    private static final String URL_UPLOAD = "https://api.cloudinary.com/v1_1/martfury/image/upload";
 
 
     @PostMapping("/signin")
@@ -125,6 +134,39 @@ public class UserApiHandle {
     @GetMapping("/logout")
     public ResponseEntity<Void> logout() {
         return ResponseEntity.ok().build();
+    }
+
+    @PostMapping(value = "/upload-file", consumes = {MediaType.MULTIPART_FORM_DATA_VALUE})
+    public ResponseEntity<String> uploadFile(@RequestParam("file") MultipartFile file) {
+        String url = "https://api.cloudinary.com/v1_1/martfury/image/upload";
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.MULTIPART_FORM_DATA);
+        MultiValueMap<String, Object> body = new LinkedMultiValueMap<>();
+        body.add("file", file.getResource());
+        body.add("upload_preset", "user-image");
+        body.add("cloud_name", "martfury");
+        HttpEntity<MultiValueMap<String, Object>> requestEntity = new HttpEntity<>(body, headers);
+        ResponseEntity<String> response = restTemplate.exchange(url, HttpMethod.POST, requestEntity, String.class);
+        return ResponseEntity.ok(response.getBody());
+    }
+
+    @PostMapping("send-mail-forgot-password-token")
+    public ResponseEntity<String> sendToken(@RequestBody String email) {
+
+        if (!userRepository.existsByEmail(email)) {
+            return ResponseEntity.notFound().build();
+        }
+        User user = userRepository.findByEmail(email).get();
+        String token = user.getToken();
+        sendMaiToken(email, token, "Reset mật khẩu");
+        return ResponseEntity.ok().build();
+
+    }
+
+    public void sendMaiToken(String email, String token, String title) {
+        String body = "\r\n" + "    <h2>Hãy nhấp vào link để thay đổi mật khẩu của bạn</h2>\r\n"
+                + "    <a href=\"http://localhost:8080/forgot-password/" + token + "\">Đổi mật khẩu</a>";
+        sendMailService.queue(email, title, body);
     }
 
 
