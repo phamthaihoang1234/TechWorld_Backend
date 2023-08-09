@@ -3,6 +3,8 @@ package com.example.TechWorld.service.implement;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.data.web.SpringDataWebProperties.Pageable;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import com.example.TechWorld.model.Product;
@@ -28,6 +30,11 @@ public class ProductServiceImplement implements ProductService {
     @Override
     public List<Product> getHighlightProducts() {
         return productRepo.getHighlightProducts();
+    }
+
+    @Override
+    public List<Product> getAllProducts(int page) {
+        return productRepo.getAllProducts(PageRequest.of(page, 12));
     }
     
 }

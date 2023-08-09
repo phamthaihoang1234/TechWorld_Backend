@@ -35,4 +35,12 @@ public class OrderDetails implements Serializable {
 
 
 
+
+    public OrderDetails(Long orderDetailId,  int quantity,Double price, Product product, Order order) {
+        this.orderDetailId = orderDetailId;
+        this.price = price;
+        this.quantity = quantity;
+        this.order = order;
+        this.product = product;
+    }
 }
